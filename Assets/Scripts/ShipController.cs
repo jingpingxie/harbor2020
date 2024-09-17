@@ -5,6 +5,11 @@ using UnityEngine;
 
 public class ShipController : MonoBehaviour
 {
+    const int BaySum = 9;
+    const int RowSum = 4;
+    const int ColumnSumInFirstBay = 6;
+    const int ColumnSum = 10;
+    const int ColumnSumInLastBay = 6;
     Object[] m_AssetContainers = new GameObject[7];
     // Start is called before the first frame update
     void Start()
@@ -20,8 +25,7 @@ public class ShipController : MonoBehaviour
     }
     void LoadContainer()
     {
-        int baySum = 9;
-        for (int bayIndex = 0; bayIndex < baySum; bayIndex++)
+        for (int bayIndex = 0; bayIndex < BaySum; bayIndex++)
         {
             LoadContainerToBay(bayIndex);
         }
@@ -34,23 +38,26 @@ public class ShipController : MonoBehaviour
         float xAdjust;
         if (bayIndex == 0)
         {
-            columnSum = 6;
+            //第一个bay
+            columnSum = ColumnSumInFirstBay;
             xAdjust = -6;
             y = bayIndex * 16 - 72;//纵向
         }
-        else if (bayIndex == 8)
+        else if (bayIndex == BaySum - 1)
         {
-            columnSum = 6;
+            //最后一个bay
+            columnSum = ColumnSumInLastBay;
             xAdjust = -6;
-            y = bayIndex * 16 - 45;//纵向
+            y = bayIndex * 16 - 42;//纵向
         }
         else
         {
-            columnSum = 10;
+            //中间的Bay
+            columnSum = ColumnSum;
             xAdjust = -11;
-            y = bayIndex * 16 - 70;//纵向
+            y = bayIndex * 15.5f - 65;//纵向
         }
-        for (int row = 0; row < 4; row++)
+        for (int row = 0; row < RowSum; row++)
         {
             float z = row * 2.5f;//高度
             for (int column = 0; column < columnSum; column++)
